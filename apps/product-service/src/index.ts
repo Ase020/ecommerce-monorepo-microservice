@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response, Request } from "express";
 import cors from "cors";
 
 const PORT = process.env.PORT || 8080;
@@ -12,8 +12,17 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("Product Service is running");
+app.get("/", (req: Request, res: Response) => {
+  res.json("Product Service is running");
+});
+
+app.get("/health-check", (req: Request, res: Response) => {
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    cpuUsage: process.cpuUsage(),
+  });
 });
 
 app.listen(PORT, () => {

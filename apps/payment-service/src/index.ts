@@ -9,6 +9,15 @@ app.get("/", (c) => {
   return c.text("Payment service is running");
 });
 
+app.get("/health-check", (c) => {
+  return c.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    cpuUsage: process.cpuUsage(),
+  });
+});
+
 const start = async () => {
   try {
     serve(

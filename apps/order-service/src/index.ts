@@ -7,7 +7,16 @@ const fastify = Fastify({
 });
 
 fastify.get("/", async (request, reply) => {
-  return { hello: "Order service is running" };
+  return reply.send("Order service is running");
+});
+
+fastify.get("/health-check", async (request, reply) => {
+  return reply.status(200).send({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    cpuUsage: process.cpuUsage(),
+  });
 });
 
 const start = async () => {
