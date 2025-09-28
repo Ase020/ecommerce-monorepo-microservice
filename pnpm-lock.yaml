@@ -212,6 +212,9 @@ importers:
         specifier: ^5.5.0
         version: 5.6.1
     devDependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -237,6 +240,9 @@ importers:
         specifier: ^4.9.9
         version: 4.9.9
     devDependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -265,6 +271,9 @@ importers:
         specifier: ^5.0.3
         version: 5.1.0
     devDependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -339,6 +348,25 @@ importers:
       prisma:
         specifier: ^6.16.2
         version: 6.16.2(typescript@5.9.2)
+
+  packages/types:
+    dependencies:
+      '@repo/order-db':
+        specifier: workspace:*
+        version: link:../order-db
+      '@repo/product-db':
+        specifier: workspace:*
+        version: link:../product-db
+      zod:
+        specifier: ^4.1.9
+        version: 4.1.11
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^24.5.2
+        version: 24.5.2
 
   packages/typescript-config: {}
 
