@@ -5,6 +5,8 @@ async function TestPage() {
   const { getToken } = await auth();
   const token = await getToken();
 
+  console.log("Token:", token);
+
   const resProduct = await fetch("http://localhost:8080/test", {
     headers: {
       Authorization: `Bearer ${token}`,
