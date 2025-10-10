@@ -6,7 +6,7 @@ import useCartStore from "@/stores/cartStore";
 import {
   // CartItemsType,
   ShippingFormInputs,
-} from "@/types";
+} from "@repo/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -138,7 +138,11 @@ const CartPage = () => {
                   {/* IMAGE */}
                   <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
                     <Image
-                      src={item.images?.[item.selectedColor] || ""}
+                      src={
+                        (item.images as Record<string, string>)?.[
+                          item.selectedColor
+                        ] || ""
+                      }
                       alt={item.name}
                       fill
                       className="object-contain"

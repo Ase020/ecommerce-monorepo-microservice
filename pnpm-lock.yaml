@@ -178,6 +178,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -239,6 +242,9 @@ importers:
       hono:
         specifier: ^4.9.9
         version: 4.9.9
+      stripe:
+        specifier: ^19.1.0
+        version: 19.1.0(@types/node@20.19.17)
     devDependencies:
       '@repo/types':
         specifier: workspace:*
@@ -358,7 +364,7 @@ importers:
         specifier: workspace:*
         version: link:../product-db
       zod:
-        specifier: ^4.1.9
+        specifier: ^4.1.11
         version: 4.1.11
     devDependencies:
       '@repo/typescript-config':
@@ -3328,6 +3334,15 @@ packages:
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==, tarball: https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz}
     engines: {node: '>=8'}
+
+  stripe@19.1.0:
+    resolution: {integrity: sha512-FjgIiE98dMMTNssfdjMvFdD4eZyEzdWAOwPYqzhPRNZeg9ggFWlPXmX1iJKD5pPIwZBaPlC3SayQQkwsPo6/YQ==, tarball: https://registry.npmjs.org/stripe/-/stripe-19.1.0.tgz}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@types/node': '>=16'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
 
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==, tarball: https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.1.6.tgz}
@@ -6711,6 +6726,12 @@ snapshots:
       es-object-atoms: 1.1.1
 
   strip-json-comments@3.1.1: {}
+
+  stripe@19.1.0(@types/node@20.19.17):
+    dependencies:
+      qs: 6.14.0
+    optionalDependencies:
+      '@types/node': 20.19.17
 
   styled-jsx@5.1.6(react@19.1.0):
     dependencies:

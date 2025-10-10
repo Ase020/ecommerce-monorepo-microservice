@@ -32,6 +32,38 @@ app.get("/test", shouldBeUser, (c) => {
   });
 });
 
+// app.post("/create-stripe-product", shouldBeUser, async (c) => {
+//   const response = await stripe.products.create({
+//     id: "test_product_123",
+//     name: "Test Product",
+//     description: "This is a test product",
+//     default_price_data: {
+//       currency: "usd",
+//       unit_amount: 10 * 100,
+//     },
+//     expand: ["default_price"],
+//   });
+
+//   return c.json(
+//     { product: response, message: "Product created successfully" },
+//     200
+//   );
+// });
+
+// app.get("/stripe-product-price", shouldBeUser, async (c) => {
+//   const response = await stripe.prices.list({
+//     product: "test_product_123",
+//     limit: 1,
+//   });
+
+//   console.log("Response:", response);
+
+//   return c.json({
+//     price: response.data[0],
+//     message: "Product price fetched successfully",
+//   });
+// });
+
 const start = async () => {
   try {
     serve(
