@@ -145,10 +145,10 @@ importers:
         specifier: ^5.2.1
         version: 5.2.2(react-hook-form@7.63.0(react@19.1.0))
       '@stripe/react-stripe-js':
-        specifier: ^3.6.0
+        specifier: ^3.10.0
         version: 3.10.0(@stripe/stripe-js@7.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@stripe/stripe-js':
-        specifier: ^7.0.0
+        specifier: ^7.9.0
         version: 7.9.0
       lucide-react:
         specifier: ^0.535.0

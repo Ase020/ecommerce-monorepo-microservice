@@ -21,8 +21,6 @@ async function TestPage() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    cache: "no-store",
-    credentials: "include",
   });
   const dataOrder = await resOrder.json();
   console.log("Response from Order Service:", dataOrder);
@@ -31,13 +29,12 @@ async function TestPage() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    cache: "no-store",
-    credentials: "include",
   });
+
   const dataPayment = await resPayment.json();
   console.log("Response from Payment Service:", dataPayment);
 
-  return <div>TestPage</div>;
+  return <div>Token: {token}</div>;
 }
 
 export default TestPage;

@@ -1,13 +1,18 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
+import { cors } from "hono/cors";
+import { clerkMiddleware } from "@hono/clerk-auth";
+import sessionRoute from "./routes/session.route";
 import { shouldBeUser } from "./middleware/authMiddleware";
+import stripe from "./utils/stripe";
+import webhookRoute from "./routes/webhooks.route";
 
 const PORT = Number(process.env.PORT) || 8082;
 
 const app = new Hono();
 
 app.use("*", clerkMiddleware());
+app.use("*", cors({ origin: "http://localhost:3002" }));
 
 app.get("/", (c) => {
   return c.json({ message: "Payment service is running" }, 200);
@@ -25,30 +30,26 @@ app.get("/health-check", (c) => {
   );
 });
 
-app.get("/test", shouldBeUser, (c) => {
-  return c.json({
-    message: "Payment service is authenticated",
-    userId: c.get("userId"),
+app.route("/sessions", sessionRoute);
+app.route("/webhooks", webhookRoute);
+
+app.post("/create-stripe-product", shouldBeUser, async (c) => {
+  const response = await stripe.products.create({
+    id: "1",
+    name: "Test Product 2",
+    description: "This is a test product 2",
+    default_price_data: {
+      currency: "usd",
+      unit_amount: 10 * 100,
+    },
+    expand: ["default_price"],
   });
+
+  return c.json(
+    { product: response, message: "Product created successfully" },
+    200
+  );
 });
-
-// app.post("/create-stripe-product", shouldBeUser, async (c) => {
-//   const response = await stripe.products.create({
-//     id: "test_product_123",
-//     name: "Test Product",
-//     description: "This is a test product",
-//     default_price_data: {
-//       currency: "usd",
-//       unit_amount: 10 * 100,
-//     },
-//     expand: ["default_price"],
-//   });
-
-//   return c.json(
-//     { product: response, message: "Product created successfully" },
-//     200
-//   );
-// });
 
 // app.get("/stripe-product-price", shouldBeUser, async (c) => {
 //   const response = await stripe.prices.list({
@@ -63,6 +64,13 @@ app.get("/test", shouldBeUser, (c) => {
 //     message: "Product price fetched successfully",
 //   });
 // });
+
+app.get("/test", shouldBeUser, (c) => {
+  return c.json({
+    message: "Payment service is authenticated",
+    userId: c.get("userId"),
+  });
+});
 
 const start = async () => {
   try {
