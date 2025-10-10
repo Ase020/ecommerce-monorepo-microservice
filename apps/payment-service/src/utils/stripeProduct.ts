@@ -34,3 +34,13 @@ export async function getStripeProductPrice(productId: string) {
     return error;
   }
 }
+
+export async function deleteStripeProduct(productId: string) {
+  try {
+    const response = await stripe.products.del(productId);
+    return response;
+  } catch (error) {
+    console.log("Error deleting product:", error);
+    return error;
+  }
+}

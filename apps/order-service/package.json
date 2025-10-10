@@ -14,7 +14,8 @@
   "dependencies": {
     "@clerk/fastify": "^2.4.34",
     "fastify": "^5.5.0",
-    "@repo/order-db": "workspace:*"
+    "@repo/order-db": "workspace:*",
+    "@repo/kafka": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

@@ -6,6 +6,8 @@ import sessionRoute from "./routes/session.route";
 import { shouldBeUser } from "./middleware/authMiddleware";
 import stripe from "./utils/stripe";
 import webhookRoute from "./routes/webhooks.route";
+import { consumer, producer } from "./utils/kafka";
+import { runKafkaSubscriptions } from "./utils/subscriptions";
 
 const PORT = Number(process.env.PORT) || 8082;
 
@@ -74,6 +76,8 @@ app.get("/test", shouldBeUser, (c) => {
 
 const start = async () => {
   try {
+    Promise.all([await producer.connect(), await consumer.connect()]);
+    await runKafkaSubscriptions();
     serve(
       {
         fetch: app.fetch,

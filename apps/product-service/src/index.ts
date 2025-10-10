@@ -5,6 +5,7 @@ import { clerkMiddleware } from "@clerk/express";
 import { shouldBeUser } from "./middleware/authMiddleware";
 import productRouter from "./routes/product.route";
 import categoryRouter from "./routes/category.route";
+import { consumer, producer } from "./utils/kafka";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -46,6 +47,16 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 app.use("/products", productRouter);
 app.use("/categories", categoryRouter);
 
-app.listen(PORT, () => {
-  console.log(`Product Service is listening on port ${PORT}`);
-});
+const start = async () => {
+  try {
+    Promise.all([await producer.connect(), await consumer.connect()]);
+
+    app.listen(PORT, () => {
+      console.log(`Product Service is listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log("Error starting server:", error);
+  }
+};
+
+start();
